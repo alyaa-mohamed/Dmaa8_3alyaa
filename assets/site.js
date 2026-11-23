@@ -392,8 +392,24 @@ function closeOffer() { const m = $("#offerModal"); if (m) { m.classList.remove(
 function setupNav() {
   $$(".nav-links a").forEach(a => { if (a.dataset.nav === PAGE) a.setAttribute("aria-current", "page"); });
   const btn = $("#menuBtn"), nav = $(".nav");
-  if (btn) btn.addEventListener("click", () => { const o = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", o); });
+  if (btn) { btn.setAttribute("aria-controls", "navMore"); btn.addEventListener("click", () => { const o = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", o); }); }
+  fitNav();
+  addEventListener("resize", fitNav);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNav);
+  const lg = $("#lang"); if (lg) lg.addEventListener("click", () => setTimeout(fitNav, 0));
 }
+/* mobile: all links stay side by side in the top bar; ⋮ opens the same list as a full menu */
+function fitNav() {
+  const nav = $(".nav"), box = $("#navLinks"); if (!nav || !box) return;
+  let more = $("#navMore");
+  if (!more) { more = document.createElement("div"); more.className = "nav-more"; more.id = "navMore"; nav.appendChild(more); }
+  more.innerHTML = "";
+  box.querySelectorAll("a").forEach(a => more.appendChild(a.cloneNode(true)));
+  if (innerWidth > 980) { nav.classList.remove("open"); return; }
+  const cur = box.querySelector('[aria-current="page"]');
+  if (cur) { const c = box.getBoundingClientRect(), r = cur.getBoundingClientRect(); if (r.right > c.right || r.left < c.left) box.scrollLeft += (r.left + r.width / 2) - (c.left + c.width / 2); }
+}
+
 
 /* ---------- render all ---------- */
 function renderAll() {
