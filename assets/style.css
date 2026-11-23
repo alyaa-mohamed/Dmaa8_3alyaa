@@ -1027,3 +1027,26 @@ html[dir="rtl"] .wk h3{letter-spacing:0;line-height:1.2}
   .nav-more a[aria-current="page"]{color:var(--paper);background:rgba(251,249,246,.08)}
   .nav.open{background:rgba(26,25,23,.97)}
 }
+
+/* deck arrows + toss */
+.kstage{position:relative}
+.ktoss{position:absolute;inset:0;pointer-events:none;z-index:3;transition:transform .6s cubic-bezier(.45,.05,.55,.95),opacity .6s ease-in}
+.ktoss .kcard{cursor:default}
+.ktoss.go{transform:translate(var(--tx),-14%) rotate(var(--rot)) scale(.92);opacity:0}
+.kcard.k-in .kface{animation:kSettle .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes kSettle{from{transform:scale(.93) translateY(10px);filter:brightness(.7)}to{transform:none;filter:none}}
+.kcard.k-in .kface-b{animation-name:kSettleB}
+@keyframes kSettleB{from{transform:rotateY(180deg) scale(.93) translateY(10px);filter:brightness(.7)}to{transform:rotateY(180deg);filter:none}}
+.kcard.k-back{animation:kBack .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes kBack{from{translate:var(--tx) -12%;rotate:var(--rot);opacity:0}to{translate:0 0;rotate:0deg;opacity:1}}
+.knav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px}
+.knav-btn{width:52px;height:52px;border-radius:50%;border:1px solid rgba(254,107,199,.45);background:var(--ink-2);display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+.knav-btn svg{width:22px;height:22px;fill:none;stroke:var(--paper);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+html[dir="rtl"] .knav-btn svg{transform:scaleX(-1)}
+@media (hover:hover){.knav-btn:hover:not(:disabled){background:var(--pink);border-color:var(--pink)}
+.knav-btn:hover:not(:disabled) svg{stroke:#1a1917}}
+.knav-btn:active:not(:disabled){transform:scale(.94)}
+.knav-btn:disabled{opacity:.35;cursor:default}
+.knav-btn:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.knav-n{min-width:64px;text-align:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){.ktoss,.kcard.k-in .kface,.kcard.k-back{transition:none;animation:none}}

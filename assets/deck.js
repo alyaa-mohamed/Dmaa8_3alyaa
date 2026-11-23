@@ -313,10 +313,10 @@ const DECK = [
 "s": "♣",
 "r": "3",
 "w": "إيميل",
-"f": "النوم في العسل",
-"e": "🛏️🍯🕵️",
-"h": "مصيبة ضربت رجالة البلد كلها… ومحدش عايز يتكلم فيها.",
-"qt": "«لا حياء في الدين، لا حياء في العلم، لا حياء أمام رجال المباحث.»",
+"f": "Ratatouille",
+"e": "🐀👨‍🍳🍲",
+"h": "أشطر شيف في باريس… طوله ١٠ سانتي وقاعد تحت الطاقية.",
+"qt": "«أي حد يقدر يطبخ.»",
 "d": "اعمل حركة كونغ فو بصوت عالي.",
 "q": "مين أكتر حد بيلهمك؟"
 },
@@ -637,13 +637,57 @@ function kRender() {
   card.setAttribute("aria-label", c ? t("deck.flip") : t("deck.draw"));
   $("#kFlip").hidden = !c;
   $("#kCount").textContent = c ? t("deck.left").replace("{n}", kOrder.length - kPos - 1) : t("deck.start");
+  const pv = $("#kPrev"), nx = $("#kNext"), nm = $("#kNum");
+  if (pv) { pv.disabled = kPos <= 0; pv.setAttribute("aria-label", t("deck.prev")); }
+  if (nx) nx.setAttribute("aria-label", t("deck.next"));
+  if (nm) nm.textContent = c ? (kPos + 1) + " / " + kOrder.length : "";
 }
+/* toss: the old card flies off like a thrown sheet, the next one settles in */
+let kBusy = false;
+function kToss(step) {
+  if (kBusy) return;
+  if (step < 0 && kPos <= 0) return;
+  const stage = $("#kStage"), card = $("#kCard");
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (calm || !stage || kPos < 0) { step > 0 ? kDraw() : (kPos--, kFlipped = false, kRender()); return; }
+  kBusy = true;
+  const rtl = document.documentElement.dir === "rtl";
+  const side = (step > 0 ? 1 : -1) * (rtl ? -1 : 1);
+  if (step > 0) {
+    const ghost = document.createElement("div"); ghost.className = "ktoss"; ghost.setAttribute("aria-hidden", "true");
+    const copy = card.cloneNode(true); copy.removeAttribute("id"); copy.querySelectorAll("[id]").forEach(n => n.removeAttribute("id")); copy.tabIndex = -1;
+    ghost.appendChild(copy); stage.appendChild(ghost);
+    kDraw();
+    card.classList.add("k-in");
+    ghost.style.setProperty("--tx", side * 135 + "%"); ghost.style.setProperty("--rot", side * (24 + Math.random() * 14) + "deg");
+    requestAnimationFrame(() => { ghost.classList.add("go"); });
+    setTimeout(() => { ghost.remove(); card.classList.remove("k-in"); kBusy = false; }, 620);
+  } else {
+    kPos--; kFlipped = false; kRender();
+    card.style.setProperty("--tx", -side * 135 + "%"); card.style.setProperty("--rot", -side * 28 + "deg");
+    card.classList.add("k-back");
+    setTimeout(() => { card.classList.remove("k-back"); kBusy = false; }, 560);
+  }
+}
+(function () {
+  const stage = $("#kStage"); if (!stage) return;
+  let x0 = null, y0 = 0;
+  stage.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener("touchend", e => {
+    if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    const rtl = document.documentElement.dir === "rtl";
+    kToss(rtl ? (dx < 0 ? 1 : -1) : (dx > 0 ? 1 : -1));
+  });
+})();
 function kDraw() {
   if (!kOrder.length || kPos >= kOrder.length - 1) { const again = kOrder.length > 0; kShuffle(); if (again) { kRender(); $("#kCount").textContent = t("deck.done"); } }
   kPos++; kFlipped = false; kRender();
 }
 document.addEventListener("click", e => {
   if (e.target.closest("#kDraw")) { kDraw(); return; }
+  if (e.target.closest("#kNext")) { kToss(1); return; }
+  if (e.target.closest("#kPrev")) { kToss(-1); return; }
   if (e.target.closest("#kFlip") || e.target.closest("#kCard")) { if (kPos < 0) { kDraw(); return; } kFlipped = !kFlipped; kRender(); }
 });
 if ($("#lang")) $("#lang").addEventListener("click", () => setTimeout(kRender, 0));
