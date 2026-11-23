@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alyaa Mohamed — Senior Graphic Designer</title>
+<meta name="description" content="The دماغ عليا playground — card games, a tiny sudoku, designer notes, colouring and stickers.">
+<meta property="og:title" content="Alyaa Mohamed — دماغ عليا">
+<meta property="og:description" content="The دماغ عليا playground — card games, a tiny sudoku, designer notes, colouring and stickers.">
+<meta property="og:image" content="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/1947a1250634425.6a2394bd8fc2b.jpg">
+<meta name="theme-color" content="#1a1917">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231a1917'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Arial' font-weight='900' font-size='36' fill='%23fe6bc7'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Readex+Pro:wght@300;400;500;600&family=Alexandria:wght@500;700;800&family=Marhey:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="reveal" data-page="playground" data-title="play.title">
+
+<nav class="nav" aria-label="Main">
+  <a class="logo" href="index.html">Alyaa<span>.</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="work.html" data-nav="work" data-t="nav.work">Work</a>
+    <a href="services.html" data-nav="services" data-t="nav.services">Services</a>
+    <a href="brain.html" data-nav="brain" data-t="nav.about">دماغ عليا</a>
+    <a href="playground.html" data-nav="playground" data-t="nav.play">Playground</a>
+    <a href="cv.html" data-nav="cv" data-t="nav.cv">CV</a>
+    <a class="nav-mob-cta" href="contact.html" data-t="nav.contact">Contact</a>
+  </div>
+  <button class="lang" id="lang" aria-label="Switch language">ع</button>
+  <a class="btn btn-hot nav-cta" href="contact.html"><span data-t="nav.cta">Let's talk</span> <span class="arrow">↗</span></a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks"><span class="sr" data-t="nav.menu">Menu</span><i></i><i></i></button>
+</nav>
+
+<main>
+<header class="page-head">
+  <div class="glow" style="width:520px;height:520px;background:rgba(158,130,254,.15);top:-200px;inset-inline-end:-160px"></div>
+  <div class="wrap">
+    <h1 class="h1 play-h1" data-t="play.title"></h1>
+    <p class="lede page-lede" data-t="play.lede"></p>
+  </div>
+</header>
+
+<section id="game" style="padding-top:0">
+  <div class="wrap game">
+    <div>
+      <h2 class="h2" data-t="play.cards"></h2>
+      <p class="lede" data-t="play.cards.lede"></p>
+      <div class="filters decks" id="decks" role="toolbar" aria-label="Decks"></div>
+      <div class="game-ctrl">
+        <button class="btn btn-hot" id="draw"><span data-t="game.draw">Pull a card</span> <span aria-hidden="true">🃏</span></button>
+        <a class="btn btn-ghost" id="answer" target="_blank" rel="noopener" hidden><span data-t="game.answer">Send me your answer</span> <span class="arrow">↗</span></a>
+      </div>
+      <p class="game-count" id="gameCount" aria-live="polite"></p>
+    </div>
+    <div class="deck" aria-live="polite">
+      <div class="gcard back b3" aria-hidden="true"></div>
+      <div class="gcard back b2" aria-hidden="true"></div>
+      <button class="gcard flip" id="topCard" aria-label="Pull a card">
+        <span class="face front"><span class="mark-sm">دماغ عليا</span><span class="qm">?</span></span>
+        <span class="face qface"><span class="qnum" id="qNum"></span><span class="qtext" id="qText"></span><span class="mark-sm">دماغ عليا</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="kotsheena" style="padding-top:0">
+  <div class="wrap game">
+    <div>
+      <h2 class="h2" data-t="deck.title"></h2>
+      <p class="lede" data-t="deck.lede"></p>
+      <div class="game-ctrl">
+        <button class="btn btn-hot" id="kDraw" type="button"><span data-t="deck.draw"></span></button>
+        <button class="btn btn-ghost" id="kFlip" type="button" hidden><span data-t="deck.flip"></span></button>
+      </div>
+      <p class="game-count" id="kCount" aria-live="polite"></p>
+      <div class="k-guide-wrap"><p class="mp-h" data-t="deck.guide"></p><div class="k-guide" id="kGuide" dir="rtl"></div></div>
+      <a class="rec-wa k-order" target="_blank" rel="noopener" href="https://wa.me/201093592555?text=%D8%B9%D8%A7%D9%8A%D8%B2%20%D9%83%D9%88%D8%AA%D8%B4%D9%8A%D9%86%D8%A9%20%D8%AF%D9%85%D8%A7%D8%BA%20%D8%B9%D9%84%D9%8A%D8%A7%20%D9%85%D8%B7%D8%A8%D9%88%D8%B9%D8%A9%20%F0%9F%83%8F" data-t="deck.order"></a>
+    </div>
+    <div class="kdeck" aria-live="polite">
+      <button class="kcard" id="kCard" type="button"><span class="kface" id="kFront"></span><span class="kface kface-b" id="kBack"></span></button>
+    </div>
+  </div>
+</section>
+
+<section id="play-with" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2" data-t="play.with.title"></h2>
+      <p class="lede" data-t="play.with.lede"></p>
+      <p class="offer-hint" data-t="offer.hint"></p>
+    </div>
+    <div class="duo">
+      <div class="panel" id="xo">
+        <h3 class="h3">XO</h3>
+        <p class="bubble-msg" id="xoMsg" aria-live="polite"></p>
+        <div class="xo-grid" id="xoGrid" dir="ltr"></div>
+        <div class="panel-ctrl"><button class="btn btn-ghost" id="xoReset"><span data-t="play.again"></span></button><div class="score" id="xoScore"></div></div>
+      </div>
+      <div class="panel" id="ludo">
+        <h3 class="h3" data-t="play.ludo.title"></h3>
+        <p class="bubble-msg" id="ldMsg" aria-live="polite"></p>
+        <div class="ld-board" id="ldBoard" dir="ltr"></div>
+        <div class="panel-ctrl">
+          <div class="die" id="ldDie" data-n="1" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <button class="btn btn-hot" id="ldRoll"><span data-t="play.roll"></span> 🎲</button>
+          <button class="btn btn-ghost" id="ldReset"><span data-t="play.again"></span></button>
+          <div class="ld-home" id="ldHome"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trick"><div class="wrap"><span class="trick-tag">note</span><p dir="auto" data-t="trick.2"></p></div></div>
+
+<section class="play-duo" style="padding-top:0">
+  <div class="wrap duo">
+    <div class="panel">
+      <h2 class="h3" data-t="play.sudoku.title"></h2>
+      <p class="muted" data-t="play.sudoku.lede"></p>
+      <div class="sudoku" id="sudoku" dir="ltr"></div>
+      <div class="panel-ctrl">
+        <button class="btn btn-hot" id="sudokuCheck"><span data-t="play.check"></span></button>
+        <button class="btn btn-ghost" id="sudokuNew"><span data-t="play.new"></span></button>
+        <span class="msg" id="sudokuMsg" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="h3" data-t="play.color.title"></h2>
+      <p class="muted" data-t="play.color.lede"></p>
+      <div class="palette" id="palette" role="toolbar" aria-label="Colours"></div>
+      <div class="m-nav"><button type="button" id="mPrev" aria-label="Previous page"></button><span id="mPageLbl" aria-live="polite"></span><button type="button" id="mNext" aria-label="Next page"></button></div>
+      <svg id="colorArt" class="color-art" viewBox="-196 -196 392 392" xmlns="http://www.w3.org/2000/svg" stroke="#1a1917" stroke-width="1.4" stroke-linejoin="round" role="img" aria-label="Colouring page"></svg>
+      <div class="panel-ctrl">
+        <button class="btn btn-ghost" id="colorReset"><span data-t="play.reset"></span></button>
+        <button class="btn btn-ghost" id="colorSave"><span data-t="play.save"></span> <span>↓</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="design-notes" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2" data-t="play.notes.title"></h2>
+      <p class="lede" data-t="play.notes.lede"></p>
+    </div>
+    <div class="dnotes" id="dnotes"></div>
+  </div>
+</section>
+
+<section id="lists" style="padding-top:0">
+  <div class="wrap duo lists">
+    <div>
+      <h2 class="h2" data-t="rec.title"></h2>
+      <p class="lede" data-t="rec.lede"></p>
+      <div class="filters" id="listTabs" role="tablist"></div>
+      <div class="my-picks" id="myPicks"></div>
+    </div>
+    <form class="paperpad rec-form" id="recForm" name="recommend">
+      <input type="hidden" name="topic" id="recTopic">
+      <p class="rec-q" id="recQ"></p>
+      <textarea id="listText" name="pick" rows="7" required></textarea>
+      <input class="rec-name" name="name" id="recName" autocomplete="name">
+      <div class="rec-actions">
+        <button class="btn btn-hot" type="submit"><span data-t="rec.send"></span></button>
+      </div>
+      <small id="listSaved" aria-live="polite"></small>
+    </form>
+  </div>
+  <div class="wrap"><div class="shelf" id="picksShelf"></div></div>
+</section>
+
+<section id="stickers-sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="h2" data-t="play.stickers.title"></h2>
+      <p class="lede" data-t="play.stickers.lede"></p>
+    </div>
+    <div class="filters" id="stkCats" role="toolbar" aria-label="Sticker sets"></div>
+    <div class="stickers" id="stickers"></div>
+    <div class="more-row"><button class="btn btn-hot" id="stkAll"><span data-t="play.dlall"></span> <span>↓</span></button></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> Alyaa Mohamed · <span dir="rtl">دماغ عليا</span></span>
+    <div class="socials">
+      <a href="https://www.behance.net/AlyaaMohamed" target="_blank" rel="noopener">Behance</a>
+      <a href="https://www.linkedin.com/in/alyaamohamed1/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://vimeo.com/user181852872" target="_blank" rel="noopener">Vimeo</a>
+      <a href="https://beacons.ai/alyaamohamed" target="_blank" rel="noopener">Beacons</a>
+      <a href="https://www.facebook.com/AlyaaMohamedA" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="assets/data.js"></script>
+<script src="assets/picks.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/games.js"></script>
+<script src="assets/deck.js"></script>
+<script src="assets/coloring.js"></script>
+<script src="assets/motion.js"></script>
+</body>
+</html>
