@@ -467,7 +467,7 @@ requestAnimationFrame(() => setTimeout(() => document.body.classList.add("loaded
 function renderClients(){
   const box = $("#clients-rows"); if (!box || typeof CLIENTS === "undefined") return;
   const tilt = [-3,2,-1.5,3,-2,1.5];
-  const tile = (c,k) => `<span class="cl" style="--b:${c.bg};--r:${tilt[k%tilt.length]}deg" title="${esc(c[lang])}"><img src="assets/img/clients/${c.id}.webp" alt="${esc(c[lang])}" loading="lazy" decoding="async"></span>`;
+  const tile = (c,k) => `<span class="cl" style="--b:${c.bg};--r:${tilt[k%tilt.length]}deg" title="${esc(c[lang])}"><img src="clients/${c.id}.webp" alt="${esc(c[lang])}" loading="lazy" decoding="async"></span>`;
   const half = Math.ceil(CLIENTS.length/2);
   const rows = [CLIENTS.slice(0,half), CLIENTS.slice(half)];
   box.innerHTML = rows.map((r,n) => {
