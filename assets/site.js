@@ -530,3 +530,16 @@ function renderMotion(){
     <img src="assets/img/motion/${m.id}.webp" alt="" loading="lazy" decoding="async"><span class="play" aria-hidden="true"></span>
     <span class="meta"><span>${esc(m[lang])}</span><small>${m.d}</small></span></a>`).join("");
 }
+
+/* contact form: GitHub Pages can't receive forms, so the message opens in the visitor's email app */
+(function () {
+  const f = document.getElementById("contactForm"); if (!f) return;
+  f.addEventListener("submit", e => {
+    e.preventDefault();
+    const v = n => (f.elements[n] && f.elements[n].value || "").trim();
+    const subj = "New project · " + v("type") + " · " + v("name");
+    const body = v("message") + "\n\n— " + v("name") + "\n" + v("email");
+    location.href = "mailto:alyaa.abdelnaby1@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
+    setTimeout(() => { location.href = "thanks.html"; }, 900);
+  });
+})();
