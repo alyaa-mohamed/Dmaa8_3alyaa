@@ -146,4 +146,43 @@
   };
   addEventListener("scroll", () => { if (!wkTick) { wkTick = true; requestAnimationFrame(wkStack); } }, { passive: true });
   addEventListener("resize", wkStack);
+
+  /* ---------- 7. playful extras: floating suits, magnetic buttons, marker underline, card-confetti ---------- */
+  const SUITS = ["♠", "♥", "♦", "♣", "★", "?"];
+  const COLS = ["var(--pink)", "var(--orange)", "var(--lilac)", "var(--purple)"];
+  document.querySelectorAll(".hero, .page-head").forEach(h => {
+    if (h.querySelector(".suits")) return;
+    const box = document.createElement("div"); box.className = "suits"; box.setAttribute("aria-hidden", "true");
+    for (let i = 0; i < 7; i++) {
+      const s = document.createElement("span"); s.textContent = SUITS[i % SUITS.length];
+      s.style.cssText = `--l:${(8 + i * 13 + Math.random() * 6).toFixed(1)}%;--t:${(14 + Math.random() * 70).toFixed(1)}%;--s:${(18 + Math.random() * 26).toFixed(0)}px;--d:${(7 + Math.random() * 6).toFixed(1)}s;--dl:${(-Math.random() * 8).toFixed(1)}s;--c:${COLS[i % 4]};--z:${(.4 + Math.random() * .8).toFixed(2)}`;
+      box.appendChild(s);
+    }
+    h.prepend(box);
+  });
+  if (fine) {
+    let mx = 0, my = 0, suitTick = false;
+    addEventListener("pointermove", e => {
+      mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5;
+      if (!suitTick) { suitTick = true; requestAnimationFrame(() => { document.documentElement.style.setProperty("--mx", mx.toFixed(3)); document.documentElement.style.setProperty("--my", my.toFixed(3)); suitTick = false; }); }
+    }, { passive: true });
+    document.addEventListener("pointermove", e => {
+      const b = e.target.closest && e.target.closest(".btn"); if (!b) return;
+      const r = b.getBoundingClientRect();
+      b.style.translate = `${((e.clientX - r.left) / r.width - .5) * 10}px ${((e.clientY - r.top) / r.height - .5) * 8}px`;
+    });
+    document.addEventListener("pointerout", e => { const b = e.target.closest && e.target.closest(".btn"); if (b && !b.contains(e.relatedTarget)) b.style.translate = ""; });
+  }
+  const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("drawn"); hio.unobserve(e.target); } }), { threshold: .6 });
+  document.querySelectorAll("main .h2").forEach(h => { h.classList.add("mk"); hio.observe(h); });
+  document.addEventListener("click", e => {
+    const t = e.target.closest && e.target.closest(".btn-hot, #topCard, .kstage, .stk");
+    if (!t) return;
+    for (let i = 0; i < 9; i++) {
+      const p = document.createElement("span"); p.className = "confetto"; p.textContent = SUITS[i % 5];
+      const a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 70;
+      p.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;--dx:${(Math.cos(a) * d).toFixed(0)}px;--dy:${(Math.sin(a) * d - 30).toFixed(0)}px;--rot:${(Math.random() * 360 - 180).toFixed(0)}deg;color:${COLS[i % 4]}`;
+      document.body.appendChild(p); setTimeout(() => p.remove(), 900);
+    }
+  });
 })();

@@ -131,7 +131,20 @@ const CARDS = [
  {en:"What's the one question you ask yourself before starting anything?", ar:"إيه السؤال اللي بتسأله لنفسك قبل ما تبدأ أي حاجة؟"},
  {en:"Truth or dare: name the last film you watched twice.", ar:"قول أو اعمل: قول آخر فيلم اتفرجت عليه مرتين."},
  {en:"Food that looks great and tastes okay — or looks okay and tastes amazing?", ar:"أكل شكله حلو وطعمه عادي… ولا شكله عادي وطعمه جامد؟"},
- {en:"Does travel change the way you think — or just make it clearer?", ar:"السفر بيغيّر التفكير… ولا بيوضّحه؟"}
+ {en:"Does travel change the way you think — or just make it clearer?", ar:"السفر بيغيّر التفكير… ولا بيوضّحه؟"},
+ {en:"If your brain had a colour palette, what are its three colours?", ar:"لو دماغك ليها باليتة ألوان… إيه الـ ٣ ألوان؟"},
+ {en:"What do people think you love… that you secretly can't stand?", ar:"إيه الحاجة اللي الناس فاكراك بتحبها… وإنت أصلًا مش طايقها؟"},
+ {en:"If life had an undo button, where would you press it?", ar:"لو حياتك فيها زرار Undo… هتدوس عليه فين؟"},
+ {en:"If your name were a brand, what's its slogan?", ar:"لو اسمك براند… السلوجن بتاعه هيبقى إيه؟"},
+ {en:"Which font is most like you — and why?", ar:"أنهي فونت شبهك أكتر؟ وليه؟"},
+ {en:"What tiny thing, if it disappeared, would ruin your whole day?", ar:"حاجة صغيرة في يومك لو اختفت… اليوم كله يبوظ؟"},
+ {en:"A five-second ad for yourself: what do you say?", ar:"إعلان لنفسك في ٥ ثواني… هتقول فيه إيه؟"},
+ {en:"The last time you changed your mind about something you were sure of?", ar:"آخر مرة غيّرت رأيك في حاجة كنت متأكد منها… كانت إيه؟"},
+ {en:"If your mind were a room, what's the first thing you'd see when you open the door?", ar:"لو دماغك أوضة… أول حاجة هتشوفها لما تفتح الباب إيه؟"},
+ {en:"Advice you ignored — that turned out to be right?", ar:"نصيحة سمعتها ومعملتهاش… وطلع عندها حق؟"},
+ {en:"If today were a film title, what would it be?", ar:"لو النهارده اسم فيلم… هيبقى إيه؟"},
+ {en:"The word you say so often it's become your signature?", ar:"الكلمة اللي بتقولها كتير لدرجة إنها بقت توقيعك؟"},
+ {en:"Redesign one thing in your home — where do you start?", ar:"لو هتعمل ريديزاين لحاجة واحدة في بيتك… هتبدأ بإيه؟"}
 ];
 const STEPS = [
  {en:["Look","The market, the people and the brand itself: where do we actually stand?"], ar:["أشوف","السوق، والناس، والبراند نفسه: إحنا واقفين فين؟"]},
@@ -225,7 +238,17 @@ const DECKS = [
    {en:"Say: a brand you'd redesign tomorrow if you could.", ar:"قول: براند نفسك تعمله ريديزاين بكرة."},
    {en:"Do: describe your favourite food in three words only.", ar:"اعمل: وصّف أكلتك المفضلة في 3 كلمات بس."},
    {en:"Say: the last thing that made you laugh out loud.", ar:"قول: آخر حاجة ضحكتك من قلبك."},
-   {en:"Do: rename your job title — make it funnier.", ar:"اعمل: غيّر اسم وظيفتك لاسم أظرف."}
+   {en:"Do: rename your job title — make it funnier.", ar:"اعمل: غيّر اسم وظيفتك لاسم أظرف."},
+   {en:"Say: the food that tastes like Eid.", ar:"قول: الأكلة اللي طعمها عيد."},
+   {en:"Do: draw your first initial in the air — the others guess it.", ar:"اعمل: ارسم أول حرف من اسمك في الهوا… والباقي يخمّن."},
+   {en:"Say: the song that would make you get up and dance right now.", ar:"قول: الأغنية اللي لو اشتغلت دلوقتي هتقوم ترقص."},
+   {en:"Do: act out a famous ad in ten seconds.", ar:"اعمل: مثّل إعلان مشهور في ١٠ ثواني."},
+   {en:"Say: the last thing you bought and never used.", ar:"قول: آخر حاجة اشتريتها ومستخدمتهاش خالص."},
+   {en:"Do: pitch the person next to you like a product on sale.", ar:"اعمل: اعرض اللي جنبك كأنه منتج عليه عرض."},
+   {en:"Say: your most-used emoji — and what it says about you.", ar:"قول: الإيموجي اللي بتستخدمه أكتر… وبيقول عنك إيه؟"},
+   {en:"Do: hum a song with “la la” only — the others guess it.", ar:"اعمل: دندن أغنية بـ«لا لا» بس… والباقي يخمّن."},
+   {en:"Say: a brand you'd genuinely miss if it vanished tomorrow.", ar:"قول: ماركة لو اختفت بكرة هتزعل عليها بجد."},
+   {en:"Do: strike your “the photo came out great” pose.", ar:"اعمل: البوز بتاعك لما الصورة تطلع حلوة."}
  ]},
  { id:"movies", en:"Movie night", ar:"أسئلة أفلام", cards: [
    {en:"The film you've watched more times than you'd admit?", ar:"الفيلم اللي اتفرجت عليه مرات أكتر ما تحب تعترف؟"},
@@ -233,7 +256,15 @@ const DECKS = [
    {en:"A film poster you still remember — why that one?", ar:"بوستر فيلم لسه فاكره… ليه هو بالذات؟"},
    {en:"Cartoon from childhood you'd watch again today?", ar:"كارتون من طفولتك تتفرج عليه تاني النهارده؟"},
    {en:"If your life were a film, what genre would it be?", ar:"لو حياتك فيلم… هيكون نوعه إيه؟"},
-   {en:"The soundtrack that lives in your head rent-free?", ar:"المزيكا التصويرية اللي ساكنة دماغك ببلاش؟"}
+   {en:"The soundtrack that lives in your head rent-free?", ar:"المزيكا التصويرية اللي ساكنة دماغك ببلاش؟"},
+   {en:"A film character you'd stop in the street — what would you say?", ar:"شخصية من فيلم لو قابلتها في الشارع… هتقولها إيه؟"},
+   {en:"A film ending you'd rewrite — how would it end?", ar:"فيلم نهايته مش عاجباك… هتخلّصه إزاي؟"},
+   {en:"A film line you use in real life?", ar:"إفيه من فيلم بتقوله في حياتك العادية؟"},
+   {en:"A film about your family: who's the hero, who's the villain?", ar:"لو اتعمل فيلم عن عيلتك… مين البطل ومين الشرير؟"},
+   {en:"A cinema trip you still remember — who was with you?", ar:"خروجة سينما لسه فاكرها… مين كان معاك؟"},
+   {en:"Your comfort film for bad days?", ar:"الفيلم اللي بتشغّله لما تكون متضايق؟"},
+   {en:"Step into one cartoon world for a day — which one?", ar:"لو هتعيش يوم جوه عالم كرتون… هتختار أنهي عالم؟"},
+   {en:"A film poster you'd redesign — what would you change?", ar:"بوستر فيلم لو إنت اللي مصممه… كنت هتغيّر فيه إيه؟"}
  ]},
  { id:"this", en:"This or that", ar:"ده ولا ده", cards: [
    {en:"Fast idea — or honest idea?", ar:"فكرة أسرع… ولا فكرة أصدق؟"},
@@ -241,7 +272,17 @@ const DECKS = [
    {en:"A post that makes you laugh — or one that stays with you?", ar:"بوست يضحّك… ولا بوست يعلّم معاك؟"},
    {en:"Shine — or simplicity?", ar:"اللمعة… ولا البساطة؟"},
    {en:"Something that lasts — or something that dazzles?", ar:"الحاجة اللي تعيش… ولا الحاجة اللي تبهر؟"},
-   {en:"Something for the shelf — or something you use every day?", ar:"حاجة تتحط على الرف… ولا حاجة تتستخدم كل يوم؟"}
+   {en:"Something for the shelf — or something you use every day?", ar:"حاجة تتحط على الرف… ولا حاجة تتستخدم كل يوم؟"},
+   {en:"Morning person — or night owl?", ar:"بتصحى بدري… ولا بتسهر؟"},
+   {en:"Tea — or coffee?", ar:"شاي… ولا قهوة؟"},
+   {en:"Plan everything — or wing it?", ar:"تخطط لكل حاجة… ولا تمشيها بالبركة؟"},
+   {en:"Voice note — or text?", ar:"فويس… ولا تكتب؟"},
+   {en:"Famous — or at peace?", ar:"تبقى مشهور… ولا تبقى مرتاح؟"},
+   {en:"Minimal and precise — or loud and bold?", ar:"تصميم بسيط ومظبوط… ولا مليان وجريء؟"},
+   {en:"Sea — or mountains?", ar:"البحر… ولا الجبل؟"},
+   {en:"Travel solo — or with the gang?", ar:"تسافر لوحدك… ولا مع الشلة؟"},
+   {en:"An Arabic logo — or an English one?", ar:"اللوجو بالعربي… ولا بالإنجليزي؟"},
+   {en:"Know the ending — or be surprised?", ar:"تعرف النهاية من الأول… ولا تتفاجئ؟"}
  ]}
 ];
 
@@ -320,7 +361,26 @@ const STICKERS = [
  {cat:"joy", t:"progress\nnot perfect", shape:"ticket", bg:PURPLE, fg:INK, ac:CREAM},
  {cat:"joy", t:"خليك لطيف\nمع نفسك", shape:"flower", bg:PEACH, fg:INK, ac:PINK, icon:"heart"},
  {cat:"joy", t:"you're doing\ngreat", shape:"star", bg:PINK, fg:INK, ac:CREAM},
- {cat:"joy", t:"ابتسم 🙂", shape:"circle", bg:INK, fg:CREAM, ac:ORANGE, icon:"smile", ring:true}
+ {cat:"joy", t:"ابتسم 🙂", shape:"circle", bg:INK, fg:CREAM, ac:ORANGE, icon:"smile", ring:true},
+ // ——— زيادة ———
+ {cat:"words", t:"البيزنس\nالأول", shape:"ticket", bg:ORANGE, fg:INK, ac:CREAM},
+ {cat:"words", t:"اسأل\nقبل ما ترسم", shape:"bubble", bg:LILAC, fg:INK, ac:PINK, icon:"pencil"},
+ {cat:"words", t:"مش أي\nكلام", shape:"star", bg:PURPLE, fg:CREAM, ac:PINK},
+ {cat:"words", t:"شغل\nبدماغ", shape:"circle", bg:PINK, fg:INK, ac:CREAM, icon:"bulb"},
+ {cat:"games", t:"خلّصت؟\nتاني!", shape:"square", bg:LILAC, fg:INK, ac:ORANGE, icon:"dice"},
+ {cat:"games", t:"الدور\nعليك", shape:"heart", bg:ORANGE, fg:INK, ac:CREAM},
+ {cat:"games", t:"jackpot", shape:"pill", bg:PINK, fg:INK, ac:CREAM, icon:"star"},
+ {cat:"design", t:"مفيش\nبكسلة!", shape:"bubble", bg:CREAM, fg:INK, ac:ORANGE},
+ {cat:"design", t:"الديدلاين\nبكرة 😅", shape:"ticket", bg:INK, fg:PINK, ac:ORANGE},
+ {cat:"design", t:"بريف واضح\nشغل حلو", shape:"square", bg:ORANGE, fg:INK, ac:CREAM, ring:true},
+ {cat:"design", t:"خليه\nيتنفّس", shape:"arch", bg:PEACH, fg:INK, ac:PURPLE, icon:"spark"},
+ {cat:"joy", t:"شاي\nوفكرة", shape:"flower", bg:CREAM, fg:INK, ac:ORANGE, icon:"sun"},
+ {cat:"joy", t:"كمّل،\nإنت قريب", shape:"pill", bg:PURPLE, fg:CREAM, ac:PINK},
+ {cat:"joy", t:"إنت\nجامد", shape:"star", bg:ORANGE, fg:INK, ac:CREAM},
+ {cat:"words", t:"فكّر برّه\nالصندوق", shape:"bubble", bg:PINK, fg:INK, ac:CREAM, icon:"bulb"},
+ {cat:"games", t:"كش\nملك", shape:"square", bg:INK, fg:CREAM, ac:PINK, icon:"cards", ring:true},
+ {cat:"design", t:"المسافات\nمهمة", shape:"ticket", bg:LILAC, fg:INK, ac:PURPLE},
+ {cat:"joy", t:"يوم\nحلو", shape:"circle", bg:PEACH, fg:INK, ac:ORANGE, icon:"sun"}
 ];
 const STICKER_CATS = [
  {id:"all", en:"All", ar:"الكل"},
@@ -350,7 +410,7 @@ const WIN = {
   ar: { title: "كسبت! 🎉", body: "وأحلى مكسب لسه جاي… لما نلعب سوا ونشتغل سوا، هنكسب سوا.", msg: "أهلًا علياء! كسبت في ملعب دماغ عليا 🎉 يلا نشتغل سوا." }
 };
 
-/* Clients — logo files live in assets/img/clients/<id>.webp. Add a line to add a brand. */
+/* Clients — logo files live in clients/<id>.webp. Add a line to add a brand. */
 const CLIENTS = [
  {id:"arib",en:"ARIB",ar:"أريب",bg:"#ffffff"},
  {id:"amyal",en:"Amyal",ar:"أميال",bg:"#ffffff"},

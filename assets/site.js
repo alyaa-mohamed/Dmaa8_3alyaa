@@ -150,6 +150,7 @@ function draw() {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!card.classList.contains("turned") || reduce) { deckPos++; showCard(); card.classList.add("turned"); return; }
   busy = true; card.classList.add("out");
+  const dk = card.closest(".deck"); if (dk) { dk.classList.add("shuf"); setTimeout(() => dk.classList.remove("shuf"), 700); }
   setTimeout(() => {
     card.style.transition = "none"; card.classList.remove("out", "turned"); void card.offsetWidth; card.style.transition = "";
     deckPos++; showCard(); requestAnimationFrame(() => { card.classList.add("turned"); busy = false; });
