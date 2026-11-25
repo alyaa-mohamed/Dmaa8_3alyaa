@@ -173,8 +173,8 @@
     });
     document.addEventListener("pointerout", e => { const b = e.target.closest && e.target.closest(".btn"); if (b && !b.contains(e.relatedTarget)) b.style.translate = ""; });
   }
-  const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("drawn"); hio.unobserve(e.target); } }), { threshold: .6 });
-  document.querySelectorAll("main .h2").forEach(h => { h.classList.add("mk"); hio.observe(h); });
+  const hio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll(".h2.mk").forEach(h => h.classList.add("drawn")); hio.unobserve(e.target); } }), { rootMargin: "0px 0px -18% 0px" });
+  document.querySelectorAll("main .h2").forEach(h => { h.classList.add("mk"); hio.observe(h.parentElement); });
   document.addEventListener("click", e => {
     const t = e.target.closest && e.target.closest(".btn-hot, #topCard, .kstage, .stk");
     if (!t) return;
@@ -185,4 +185,64 @@
       document.body.appendChild(p); setTimeout(() => p.remove(), 900);
     }
   });
+
+  /* ---------- 8. line motion: scroll line, a pen line drawn down the page, speed-skew, cursor ring ---------- */
+  const prog = document.createElement("div"); prog.className = "sprog"; prog.setAttribute("aria-hidden", "true"); document.body.appendChild(prog);
+  const mainEl = document.querySelector("main");
+  let pen = null;
+  if (mainEl && !document.querySelector(".pen-line")) {
+    const NS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(NS, "svg"); svg.setAttribute("class", "pen-line"); svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = `<defs><linearGradient id="penG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fe6bc7"/><stop offset=".5" stop-color="#fe7919"/><stop offset="1" stop-color="#9e82fe"/></linearGradient></defs><path class="pen-ghost"/><path class="pen-ink" stroke="url(#penG)"/><g class="pen-tip"><circle r="9"/><text y="5" text-anchor="middle">★</text></g>`;
+    mainEl.prepend(svg);
+    pen = { svg, ghost: svg.querySelector(".pen-ghost"), ink: svg.querySelector(".pen-ink"), tip: svg.querySelector(".pen-tip"), L: 0, H: 0, top: 0 };
+  }
+  function penLayout() {
+    if (!pen) return;
+    const W = mainEl.clientWidth, H = mainEl.scrollHeight, small = W < 760;
+    if (Math.abs(H - pen.H) < 4 && W === pen.W) return;
+    pen.H = H; pen.W = W;
+    pen.svg.setAttribute("viewBox", `0 0 ${W} ${H}`); pen.svg.style.height = H + "px";
+    const step = small ? 520 : 640, lo = small ? .03 : .04, hi = small ? .97 : .96;
+    let d = `M ${W * (isRTL() ? hi : lo)} ${innerHeight * .9}`, side = isRTL() ? 0 : 1, y = innerHeight * .9;
+    while (y < H - 200) {
+      const ny = Math.min(H - 120, y + step), x2 = W * (side ? hi : lo), x1 = W * (side ? lo : hi);
+      d += ` C ${x1 + (side ? 1 : -1) * W * .35} ${y + step * .15}, ${x2 + (side ? -1 : 1) * W * .1} ${ny - step * .55}, ${x2} ${ny}`;
+      // a little loop on the way, like a pen doodle
+      if (!small && Math.random() < .45 && ny < H - 400) d += ` c ${(side ? -1 : 1) * 60} 40, ${(side ? -1 : 1) * 20} 110, ${(side ? -1 : 1) * -30} 60 s ${(side ? -1 : 1) * 20} -60, ${(side ? -1 : 1) * 40} 10`;
+      y = ny; side = 1 - side;
+    }
+    pen.ink.setAttribute("d", d); pen.ghost.setAttribute("d", d);
+    pen.L = pen.ink.getTotalLength(); pen.ink.style.strokeDasharray = pen.L; pen.ink.style.strokeDashoffset = pen.L;
+    penFrame();
+  }
+  function penFrame() {
+    const dh = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = `scaleX(${dh > 0 ? clamp(scrollY / dh, 0, 1).toFixed(4) : 0})`;
+    if (!pen || !pen.L) return;
+    const top = mainEl.getBoundingClientRect().top + scrollY;
+    const p = clamp((scrollY + innerHeight * .75 - top) / Math.max(1, pen.H), 0, 1);
+    pen.ink.style.strokeDashoffset = (pen.L * (1 - p)).toFixed(1);
+    const pt = pen.ink.getPointAtLength(pen.L * p);
+    pen.tip.setAttribute("transform", `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) rotate(${(scrollY * .4) % 360})`);
+    pen.tip.style.opacity = p > .002 && p < .998 ? 1 : 0;
+  }
+  let lastY = scrollY, vel = 0, velT = false;
+  function velFrame() {
+    const dy = scrollY - lastY; lastY = scrollY;
+    vel = lerp(vel, clamp(dy, -60, 60), .2);
+    document.documentElement.style.setProperty("--vel", (vel / 60 * 7).toFixed(2));
+    if (Math.abs(vel) > .05) requestAnimationFrame(velFrame); else { document.documentElement.style.setProperty("--vel", 0); velT = false; }
+  }
+  addEventListener("scroll", () => { requestAnimationFrame(penFrame); if (!velT) { velT = true; requestAnimationFrame(velFrame); } }, { passive: true });
+  addEventListener("resize", () => { pen && (pen.H = 0); penLayout(); });
+  if (mainEl) new ResizeObserver(() => { clearTimeout(penLayout.t); penLayout.t = setTimeout(penLayout, 120); }).observe(mainEl);
+  setTimeout(penLayout, 300);
+  if (fine) {
+    const cur = document.createElement("div"); cur.className = "cur-ring"; cur.setAttribute("aria-hidden", "true"); document.body.appendChild(cur);
+    let cx = -100, cy = -100, tx = -100, ty = -100;
+    addEventListener("pointermove", e => { tx = e.clientX; ty = e.clientY; const h = e.target.closest && e.target.closest("a, button, .card, .stk, .kstage, [role=button]"); cur.classList.toggle("big", !!h); cur.classList.toggle("off", !!(e.target.closest && e.target.closest("input, textarea, select"))); }, { passive: true });
+    document.addEventListener("pointerleave", () => { tx = ty = -100; });
+    (function curLoop() { cx = lerp(cx, tx, .2); cy = lerp(cy, ty, .2); cur.style.transform = `translate3d(${cx.toFixed(1)}px,${cy.toFixed(1)}px,0)`; requestAnimationFrame(curLoop); })();
+  }
 })();
