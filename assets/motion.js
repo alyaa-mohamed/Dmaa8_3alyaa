@@ -101,14 +101,14 @@
     const p = clamp(sy / Math.max(1, st), 0, 1), e = ease(p);
     const total = sc ? sc.offsetHeight - vh : vh * .7, p2 = clamp((sy - st) / Math.max(1, total), 0, 1);
     let x = lerp(ax, bx, e) + Math.sin(p * Math.PI) * (isRTL() ? -1 : 1) * vw * .12;
-    let y = lerp(ay, by, e);
-    if (sy > st && !small && sc) y = st + vh * .5 - h / 2 + (sy - st);
-    else if (sy > st && !small) y = st + vh * .5 - h / 2 + (sy - st) * .55;  // ride along while pinned (desktop)
+    let y = lerp(ay, by, p);                                            // linear so it stays on screen the whole way
+    if (sy > st && sc) y = st + vh * .5 - h / 2 + (sy - st);
+    else if (sy > st) y = st + vh * .5 - h / 2 + (sy - st) * .55;  // ride along while pinned (desktop)
     const s = lerp(1, small ? 1.35 : 1.5, e) * (1 - p2 * .6);
     const tt = performance.now() / 1000, idle = 1 - e;                 // gentle float while it waits in the hero
     y += Math.sin(tt * 1.6) * 7 * idle;
     const ry = p * 540 + mx * 26 + p2 * 180 + Math.sin(tt * .9) * 16 * idle, rx = -my * 18 + Math.sin(p * Math.PI) * 14 + Math.cos(tt * 1.2) * 6 * idle, rz = lerp(-10, 0, e) + mx * 4 + Math.sin(tt * .7) * 3 * idle;
-    const o = small ? 1 - clamp((p - .75) / .25, 0, 1) : 1 - clamp((p2 - .08) / .22, 0, 1);
+    const o = 1 - clamp((p2 - .08) / .22, 0, 1);
     tc.style.width = w + "px"; tc.style.height = h + "px";
     tc.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) scale(${s.toFixed(3)})`;
     tc.firstChild.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${rz.toFixed(2)}deg)`;
