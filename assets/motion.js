@@ -75,7 +75,8 @@
   /* ---------- 5. the travelling card ---------- */
   const hero = document.querySelector(".hero"), arch = document.querySelector(".arch-wrap"), nameEl = document.querySelector(".name");
   let tc = null, mx = 0, my = 0, tmx = 0, tmy = 0;
-  if (hero && arch && sc) {
+  const tgt = sc || document.querySelector("#work");
+  if (hero && arch && tgt) {
     tc = document.createElement("div"); tc.className = "tcard"; tc.setAttribute("aria-hidden", "true");
     tc.innerHTML = `<div class="tc-in"><div class="tc-f"><span class="tc-c">JOKER<i>★</i></span><b>ورقة الحظ</b><small>جوكر دماغ عليا</small><span class="tc-star">★</span><span class="tc-c br">JOKER<i>★</i></span></div><div class="tc-b"><span class="tc-tape"></span><b>دماغ عليا</b><span class="tc-suits"><i>♥</i><i>♦</i><i>♣</i><i>♠</i></span></div></div>`;
     document.body.appendChild(tc);
@@ -95,13 +96,14 @@
       ay = nr.top + sy + 6;
     } else { ax = isRTL() ? ar.right - w * .55 : ar.left - w * .45; ay = ar.bottom + sy - h * .75; }
     // end: centre of the screen, when the work section is pinned
-    const st = sc.getBoundingClientRect().top + sy;
+    const st = tgt.getBoundingClientRect().top + sy;
     const bx = vw / 2 - w / 2, by = st + vh * .5 - h / 2;
     const p = clamp(sy / Math.max(1, st), 0, 1), e = ease(p);
-    const total = sc.offsetHeight - vh, p2 = clamp((sy - st) / Math.max(1, total), 0, 1);
+    const total = sc ? sc.offsetHeight - vh : vh * .7, p2 = clamp((sy - st) / Math.max(1, total), 0, 1);
     let x = lerp(ax, bx, e) + Math.sin(p * Math.PI) * (isRTL() ? -1 : 1) * vw * .12;
     let y = lerp(ay, by, e);
-    if (sy > st && !small) y = st + vh * .5 - h / 2 + (sy - st);  // ride along while pinned (desktop)
+    if (sy > st && !small && sc) y = st + vh * .5 - h / 2 + (sy - st);
+    else if (sy > st && !small) y = st + vh * .5 - h / 2 + (sy - st) * .55;  // ride along while pinned (desktop)
     const s = lerp(1, small ? 1.35 : 1.5, e) * (1 - p2 * .6);
     const tt = performance.now() / 1000, idle = 1 - e;                 // gentle float while it waits in the hero
     y += Math.sin(tt * 1.6) * 7 * idle;

@@ -1010,6 +1010,7 @@ html[dir="rtl"] .wk h3{letter-spacing:0;line-height:1.2}
   .nav.open{border-radius:0 0 26px 26px}
 }
 
+.nav-more{display:none}
 /* ===== Mobile: the link bar stays on top, side by side; ⋮ opens the full menu ===== */
 @media (max-width:980px){
   .nav-links{display:flex;flex-direction:row;flex-wrap:nowrap;order:9;width:100%;padding:6px 0 0;gap:0;
