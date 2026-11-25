@@ -147,7 +147,7 @@ function draw() {
   if (busy) return;
   const card = $("#topCard");
   if (deckPos >= deck().length - 1) shuffle();
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = false;
   if (!card.classList.contains("turned") || reduce) { deckPos++; showCard(); card.classList.add("turned"); return; }
   busy = true; card.classList.add("out");
   const dk = card.closest(".deck"); if (dk) { dk.classList.add("shuf"); setTimeout(() => dk.classList.remove("shuf"), 700); }
@@ -498,7 +498,7 @@ function renderClients(){
 /* The belt: two rows sliding in opposite directions. Scrolling speeds them up,
    scrolling back up flips them, hovering a row slows it right down. */
 function clientsBelt(box){
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (false) return;
   box.classList.add("live");
   const rows = [...box.querySelectorAll(".cl-row")].map((el,n) => ({el, x:0, dir:n ? 1 : -1, w:0, hover:0, slow:1}));
   const measure = () => rows.forEach(r => { r.w = r.el.firstElementChild.getBoundingClientRect().width; if (r.dir > 0 && !r.x) r.x = -r.w; });

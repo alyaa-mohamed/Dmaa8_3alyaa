@@ -648,7 +648,7 @@ function kToss(step) {
   if (kBusy) return;
   if (step < 0 && kPos <= 0) return;
   const stage = $("#kStage"), card = $("#kCard");
-  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const calm = false;
   if (calm || !stage || kPos < 0) { step > 0 ? kDraw() : (kPos--, kFlipped = false, kRender()); return; }
   kBusy = true;
   const rtl = document.documentElement.dir === "rtl";

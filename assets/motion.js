@@ -1,7 +1,7 @@
 /* دماغ عليا — الحركة: كارت بيسافر مع السكرول، شغل بيتحرك في 3D، عناصر بتطلع، وأرقام بتعد.
    لو الجهاز عامل "تقليل الحركة" كل ده بيتقفل والموقع بيفضل ثابت ونضيف. */
 (() => {
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = false;
   const fine = matchMedia("(pointer: fine)").matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const lerp = (a, b, t) => a + (b - a) * t;
