@@ -14,6 +14,7 @@ const store = {
 const coverSrc = p => "assets/img/covers/" + p.id + ".webp";
 const imgFallback = `onerror="imgFail(this)"`;
 function imgFail(img) {
+  const r = img.dataset.remote; if (r && img.src !== r) { img.src = r; return; }   // no local cover yet → use the Behance one
   if (img.src.includes("/808/")) { img.src = img.src.replace("/808/", "/404/"); return; }
   const box = img.parentNode; if (box) box.classList.add("noimg"); img.remove();
 }
@@ -38,7 +39,7 @@ function renderMarquee() {
 function cardHTML(p, big) {
   const L = p[lang];
   return `<a class="card ${big ? "big" : ""}" href="${esc(p.behance)}" target="_blank" rel="noopener">
-    <div class="img" data-ph="${esc(L.t)}"><img class="bgb" src="${coverSrc(p, big)}" alt="" aria-hidden="true" loading="lazy"><img class="fg" src="${coverSrc(p, big)}" alt="${esc(L.t)}" loading="lazy" ${imgFallback}><span class="badge arrow">↗</span></div>
+    <div class="img" data-ph="${esc(L.t)}"><img class="bgb" src="${coverSrc(p, big)}" data-remote="${esc(p.cover || "")}" alt="" aria-hidden="true" loading="lazy" ${imgFallback}><img class="fg" src="${coverSrc(p, big)}" data-remote="${esc(p.cover || "")}" alt="${esc(L.t)}" loading="lazy" ${imgFallback}><span class="badge arrow">↗</span></div>
     <div class="meta"><h3 dir="auto">${esc(L.t)}</h3><p>${esc(p.del ? p.del[lang].join(" / ") : t("cat." + p.cat) + " / " + L.sec)}</p></div></a>`;
 }
 
