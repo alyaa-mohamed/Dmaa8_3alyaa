@@ -22,6 +22,9 @@
 // مشروع جديد؟ زوّدي سطر فوق: id (اسم إنجليزي من غير مسافات)، cat (identity / campaign / social / print)، لينك المشروع، والكوفر.
 const BE = "https://www.behance.net/gallery/", BC = "https://mir-s3-cdn-cf.behance.net/";
 const PROJECTS = [
+ { id:"syaaraat", cat:"campaign", behance:BE+"259046911/syaaraatcom", cover:BC+"project_modules/1400/646164259046911.6b0785ddeb12b.png",
+   en:{t:"Syaaraat.com", sec:"Automotive finance · KSA"}, ar:{t:"سيارات.كوم", sec:"تمويل سيارات · السعودية"},
+   del:{en:["Ad campaigns","Social media","Motion"], ar:["حملات إعلانية","سوشيال ميديا","موشن"]} },
  { id:"arena", cat:"print", behance:BE+"258875995/Arena-cafe", cover:BC+"project_modules/1400/653950258875995.6b03868d1a792.png",
    en:{t:"Arena Restaurant & Cafe", sec:"Brand book & menu"}, ar:{t:"أرينا ريستورانت وكافيه", sec:"براند بوك ومنيو"},
    del:{en:["Art direction","Menu","Print"], ar:["آرت دايركشن","منيو","مطبوعات"]} },
